@@ -1,0 +1,47 @@
+.paginates {
+  display: flex;
+  float: right;
+}
+
+.paginates li {
+  list-style: none;
+  padding: 3px;
+}
+
+.paginates li:not(:first-child):not(:last-child) {
+  border: 1px solid darkgray;
+  margin: 4px;
+  width: 35px;
+  text-align: center;
+}
+
+.paginates li:first-child {
+  border: 1px solid darkgray;
+  margin: 4px;
+  text-align: center;
+  width: 35px;
+  background: #263040;
+}
+
+.paginates li:last-child {
+  border: 1px solid darkgray;
+  margin: 4px;
+  text-align: center;
+  width: 35px;
+  background: #263040;
+}
+
+.paginates li:first-child a {
+  text-decoration: none;
+  color: white;
+}
+
+.paginates li:last-child a {
+  text-decoration: none;
+  color: white;
+}
+
+.paginates .selected {
+  background: #8a8d93;
+  color: white;
+}

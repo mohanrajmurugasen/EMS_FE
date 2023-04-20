@@ -1,0 +1,334 @@
+import React, { useEffect } from 'react'
+import { useState } from 'react'
+
+import { CButton } from '@coreui/react'
+
+import {
+  CModal,
+  CModalHeader,
+  CModalTitle,
+  CModalFooter,
+  CContainer,
+  CRow,
+  CCol,
+  CFormInput,
+  CFormSelect,
+  CFormLabel,
+  CFormCheck,
+  CFormFloating,
+} from '@coreui/react'
+import { ToastContainer, toast } from 'react-toastify'
+import AuthAxios from 'src/Interceptors/AuthAxios'
+import { Input } from 'reactstrap'
+
+const PatientAssessmentHistory = ({
+  setActiveKey,
+  activeKey,
+  setAssessment,
+  assessment,
+  conditions,
+  setconditions,
+}) => {
+  const [visible, setVisible] = useState(false)
+  const success = (e) => toast.success(e)
+  const failure = (e) => toast.error(e)
+  const [disabel, setdisabel] = useState(true)
+
+  const [submitCon, setsubmitCon] = useState(true)
+
+  const [state, setState] = useState({
+    userId: '1',
+    dateOfInjury: '',
+    timeOfInjury: '',
+    coResponders: '',
+    treatmentRendered: '',
+    patientCondition: '',
+    patientDisplacement: '',
+    suspectedIntoxication: '',
+    chiefComplaint: '',
+    email: '',
+  })
+
+  useEffect(() => {
+    if (
+      state.dateOfInjury !== '' &&
+      state.timeOfInjury !== '' &&
+      state.coResponders !== '' &&
+      state.treatmentRendered !== '' &&
+      state.patientCondition !== '' &&
+      state.patientDisplacement !== '' &&
+      state.suspectedIntoxication !== '' &&
+      state.chiefComplaint !== ''
+    ) {
+      setsubmitCon(false)
+    } else {
+      setsubmitCon(true)
+    }
+  }, [state])
+
+  const handleInputChange = (event, name) => {
+    const { value } = event.target
+    setState((prevProps) => ({
+      ...prevProps,
+      [name]: value,
+    }))
+  }
+
+  const users = JSON.parse(localStorage.getItem('user'))
+  useEffect(() => {
+    setState((prevProps) => ({
+      ...prevProps,
+      userId: users.result._id,
+    }))
+  }, [])
+
+  const submitHandler = () => {
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    const email = regex.test(state.email)
+    if (email) {
+      setdisabel(false)
+      AuthAxios.post('PatientHistoryAssessment', state)
+        .then((res) => {
+          console.log(res.data)
+          success(res.data.message)
+          setdisabel(true)
+          setVisible(false)
+          setTimeout(() => {
+            setState((prevProps) => ({
+              ...prevProps,
+              userId: '1',
+              dateOfInjury: '',
+              timeOfInjury: '',
+              coResponders: '',
+              treatmentRendered: '',
+              patientCondition: '',
+              patientDisplacement: '',
+              suspectedIntoxication: '',
+              chiefComplaint: '',
+              email: '',
+            }))
+          }, 1000)
+        })
+        .catch((err) => {
+          failure('Internal Server Error')
+          setdisabel(true)
+          console.error(err.message)
+        })
+    } else {
+      failure('Enter valid emails!')
+    }
+  }
+
+  const nextTab = () => {
+    setAssessment((callDetails) => ({
+      ...callDetails,
+      dateOfInjury: state.dateOfInjury,
+      timeOfInjury: state.timeOfInjury,
+      coResponders: state.coResponders,
+      treatmentRendered: state.treatmentRendered,
+      patientCondition: state.patientCondition,
+      patientDisplacement: state.patientDisplacement,
+      suspectedIntoxication: state.suspectedIntoxication,
+      chiefComplaint: state.chiefComplaint,
+    }))
+    setActiveKey('primary')
+  }
+
+  useEffect(() => {
+    if (conditions) {
+      setState((prevProps) => ({
+        ...prevProps,
+        userId: '1',
+        dateOfInjury: '',
+        timeOfInjury: '',
+        coResponders: '',
+        treatmentRendered: '',
+        patientCondition: '',
+        patientDisplacement: '',
+        suspectedIntoxication: '',
+        chiefComplaint: '',
+        email: '',
+      }))
+    }
+    setconditions(false)
+  }, [conditions])
+
+  return (
+    <div>
+      <CContainer>
+        <CRow className="mb-3">
+          <CCol lg={6} md={6} sm={12}>
+            <CFormFloating className="mb-3">
+              <Input
+                type="date"
+                name="dateOfInjury"
+                value={state.dateOfInjury}
+                onChange={(event) => handleInputChange(event, 'dateOfInjury')}
+                style={{ width: '100%', height: '50px' }}
+              ></Input>
+              <CFormLabel htmlFor="floatingInput">Date Of Injury</CFormLabel>
+            </CFormFloating>
+          </CCol>
+          <CCol lg={6} md={6} sm={12}>
+            <CFormFloating className="mb-3">
+              <Input
+                type="Time"
+                name="timeOfInjury"
+                value={state.timeOfInjury}
+                onChange={(event) => handleInputChange(event, 'timeOfInjury')}
+                style={{ width: '100%', height: '50px' }}
+              ></Input>
+              <CFormLabel htmlFor="floatingInput">Time Of Injury</CFormLabel>
+            </CFormFloating>
+          </CCol>
+        </CRow>
+        <CRow>
+          <CCol lg={6} md={6} sm={12}>
+            <CFormFloating className="mb-3">
+              <CFormInput
+                type="text"
+                id="floatingInput"
+                placeholder="Co-Respondars"
+                value={state.coResponders}
+                onChange={(event) => handleInputChange(event, 'coResponders')}
+                style={{ height: '50px' }}
+              />
+              <CFormLabel htmlFor="floatingInput">Co-Respondars</CFormLabel>
+            </CFormFloating>
+          </CCol>
+          <CCol lg={6} md={6} sm={12}>
+            <CFormFloating className="mb-3">
+              <CFormInput
+                type="text"
+                id="floatingInput"
+                placeholder="Treatment Rendered"
+                value={state.treatmentRendered}
+                onChange={(event) => handleInputChange(event, 'treatmentRendered')}
+                style={{ height: '50px' }}
+              />
+              <CFormLabel htmlFor="floatingInput">Treatment Rendered</CFormLabel>
+            </CFormFloating>
+          </CCol>
+        </CRow>
+      </CContainer>
+      <CContainer>
+        <CRow className="mt-3">
+          <CCol lg={6} md={6} sm={12}>
+            <CFormFloating className="mb-3">
+              <CFormInput
+                type="text"
+                id="floatingInput"
+                placeholder="Patient Condition at Destination"
+                value={state.patientCondition}
+                onChange={(event) => handleInputChange(event, 'patientCondition')}
+                style={{ height: '50px' }}
+              />
+              <CFormLabel htmlFor="floatingInput">Patient Condition at Destination</CFormLabel>
+            </CFormFloating>
+          </CCol>
+          <CCol lg={6} md={6} sm={12}>
+            <CFormFloating className="mb-3">
+              <CFormInput
+                type="text"
+                id="floatingInput"
+                placeholder="Patient Displacement"
+                value={state.patientDisplacement}
+                onChange={(event) => handleInputChange(event, 'patientDisplacement')}
+                style={{ height: '50px' }}
+              />
+              <CFormLabel htmlFor="floatingInput">Patient Displacement</CFormLabel>
+            </CFormFloating>
+          </CCol>
+        </CRow>
+      </CContainer>
+      <CContainer>
+        <CRow className="mt-3 mb-4">
+          <CCol lg={6} md={6} sm={12}>
+            <CFormFloating className="mb-3">
+              <CFormInput
+                type="text"
+                id="floatingInput"
+                placeholder="Suspected Intoxication"
+                value={state.suspectedIntoxication}
+                onChange={(event) => handleInputChange(event, 'suspectedIntoxication')}
+                style={{ height: '50px' }}
+              />
+              <CFormLabel htmlFor="floatingInput">Suspected Intoxication</CFormLabel>
+            </CFormFloating>
+          </CCol>
+
+          <CCol lg={6} md={6} sm={12}>
+            <CFormFloating className="mb-3">
+              <CFormInput
+                type="text"
+                id="floatingInput"
+                placeholder="Chief Complaint"
+                value={state.chiefComplaint}
+                onChange={(event) => handleInputChange(event, 'chiefComplaint')}
+                style={{ height: '50px' }}
+              />
+              <CFormLabel htmlFor="floatingInput">Chief Complaint</CFormLabel>
+            </CFormFloating>
+          </CCol>
+        </CRow>
+      </CContainer>
+
+      <CContainer>
+        <CRow>
+          <CCol lg={6} md={6} sm={6}>
+            <div class="d-grid gap-2 col-6 mx-auto">
+              <button class="btn btn-secondary" disabled>
+                Back
+              </button>
+            </div>
+          </CCol>
+          <CCol lg={6} md={6} sm={6}>
+            <div class="d-grid gap-2 col-6 mx-auto">
+              <button class="btn btn-success" disabled={submitCon} onClick={() => nextTab()}>
+                Submit
+              </button>
+            </div>
+          </CCol>
+        </CRow>
+
+        <CModal visible={visible}>
+          <CModalHeader>
+            <CModalTitle>DOTTY CARE</CModalTitle>
+          </CModalHeader>
+
+          <div class="modal-body mx-3">
+            <div class="md-form mb-4">
+              <i class="fas fa-envelope prefix grey-text"></i>
+              <CFormInput
+                type="email"
+                id="form2"
+                value={state.email}
+                onChange={(event) => handleInputChange(event, 'email')}
+                class="form-control validate"
+              />
+              <label data-error="wrong" data-success="right" for="form2">
+                Hospital EMail-Id
+              </label>
+            </div>
+          </div>
+
+          <CModalFooter>
+            <CButton color="secondary" onClick={() => setVisible(false)}>
+              Close
+            </CButton>
+            <CButton
+              color="primary"
+              disabled={state.email !== '' && disabel ? false : true}
+              onClick={() => submitHandler()}
+            >
+              Submit
+            </CButton>
+          </CModalFooter>
+        </CModal>
+      </CContainer>
+      <ToastContainer />
+    </div>
+  )
+}
+
+export default PatientAssessmentHistory

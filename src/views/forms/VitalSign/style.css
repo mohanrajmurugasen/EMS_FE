@@ -1,0 +1,7 @@
+.vehicle .times {
+  width: 100%;
+}
+
+.vehicle .times input {
+  height: 50px;
+}
