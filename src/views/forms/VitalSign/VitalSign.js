@@ -12,6 +12,7 @@ import {
   CFormLabel,
   CFormFloating,
   CFormInput,
+  CFormSelect,
 } from '@coreui/react'
 
 import TimePicker from 'rc-time-picker'
@@ -42,9 +43,12 @@ const VitalSign = ({ setActiveKey, activeKey, setTreatment, treatment, setcondit
     diastolic: '',
     respiration: '',
     bloodGlucose: '',
+    bloodPressure: '',
+    oxygenSaturation: '',
     preOxygen: '',
     postOxygen: '',
     diatolic: '',
+    skinCondition: '',
     email: '',
   })
 
@@ -140,6 +144,9 @@ const VitalSign = ({ setActiveKey, activeKey, setTreatment, treatment, setcondit
               preOxygen: '',
               postOxygen: '',
               diatolic: '',
+              skinCondition: '',
+              bloodPressure: '',
+              oxygenSaturation: '',
               email: '',
             }))
             setconditions(true)
@@ -160,8 +167,8 @@ const VitalSign = ({ setActiveKey, activeKey, setTreatment, treatment, setcondit
     <div>
       <CRow>
         <CRow className="mb-3 vehicle">
+          <p>Time Of Assessment</p>
           <CCol lg={6} md={6} sm={12}>
-            <p>Time Of Assessment</p>
             <TimePicker
               placeholder="Select Time"
               use12Hours
@@ -178,11 +185,6 @@ const VitalSign = ({ setActiveKey, activeKey, setTreatment, treatment, setcondit
               className="times"
             />
           </CCol>
-        </CRow>
-      </CRow>
-
-      <CRow>
-        <CRow>
           <CCol lg={6} md={6} sm={12}>
             <CFormFloating className="mb-3">
               <CFormInput
@@ -197,6 +199,11 @@ const VitalSign = ({ setActiveKey, activeKey, setTreatment, treatment, setcondit
               <CFormLabel htmlFor="floatingInput">Level Of Consciousness</CFormLabel>
             </CFormFloating>
           </CCol>
+        </CRow>
+      </CRow>
+
+      <CRow>
+        <CRow>
           <CCol lg={6} md={6} sm={12}>
             <CFormFloating className="mb-3">
               <CFormInput
@@ -211,8 +218,6 @@ const VitalSign = ({ setActiveKey, activeKey, setTreatment, treatment, setcondit
               <CFormLabel htmlFor="floatingInput">Pulse Rate</CFormLabel>
             </CFormFloating>
           </CCol>
-        </CRow>
-        <CRow>
           <CCol lg={6} md={6} sm={12}>
             <CFormFloating className="mb-3">
               <CFormInput
@@ -227,6 +232,8 @@ const VitalSign = ({ setActiveKey, activeKey, setTreatment, treatment, setcondit
               <CFormLabel htmlFor="floatingInput">Site Of Pulse Check</CFormLabel>
             </CFormFloating>
           </CCol>
+        </CRow>
+        <CRow>
           <CCol lg={6} md={6} sm={12}>
             <CFormFloating className="mb-3">
               <CFormInput
@@ -241,22 +248,6 @@ const VitalSign = ({ setActiveKey, activeKey, setTreatment, treatment, setcondit
               <CFormLabel htmlFor="floatingInput">Temperature</CFormLabel>
             </CFormFloating>
           </CCol>
-        </CRow>
-        <CRow>
-          <CCol lg={6} md={6} sm={12}>
-            <CFormFloating className="mb-3">
-              <CFormInput
-                type="text"
-                id="floatingInput"
-                placeholder="FirstName"
-                name="skinColor"
-                value={state.skinColor}
-                onChange={(event) => handleInputChange(event, 'skinColor')}
-                style={{ height: '50px' }}
-              />
-              <CFormLabel htmlFor="floatingInput">skinColor</CFormLabel>
-            </CFormFloating>
-          </CCol>
           <CCol lg={6} md={6} sm={12}>
             <CFormFloating className="mb-3">
               <CFormInput
@@ -269,6 +260,41 @@ const VitalSign = ({ setActiveKey, activeKey, setTreatment, treatment, setcondit
               />
               <CFormLabel htmlFor="floatingInput">Site Of Temperature Check</CFormLabel>
             </CFormFloating>
+          </CCol>
+        </CRow>
+        <CRow>
+          <CCol lg={6} md={6} sm={12}>
+            <CFormSelect
+              size="sm"
+              className="mb-3"
+              aria-label="Large select example"
+              value={state.skinColor}
+              onChange={(event) => handleInputChange(event, 'skinColor')}
+              style={{ height: '50px' }}
+            >
+              <option>Select SkinColor</option>
+              <option value="Flushed">Flushed</option>
+              <option value="Pale">Pale</option>
+              <option value="Cyanosis">Cyanosis</option>
+              <option value="Jaundice">Jaundice</option>
+              <option value="Unremarkable">Unremarkable</option>
+            </CFormSelect>
+          </CCol>
+          <CCol lg={6} md={6} sm={12}>
+            <CFormSelect
+              size="sm"
+              className="mb-3"
+              aria-label="Large select example"
+              value={state.skinCondition}
+              onChange={(event) => handleInputChange(event, 'skinCondition')}
+              style={{ height: '50px' }}
+            >
+              <option>Select Skin Condition</option>
+              <option value="Dry">Dry</option>
+              <option value="Cammy">Cammy</option>
+              <option value="Diaphoretic">Diaphoretic</option>
+              <option value="Unremarkable">Unremarkable</option>
+            </CFormSelect>
           </CCol>
         </CRow>
         <CRow>
@@ -320,9 +346,9 @@ const VitalSign = ({ setActiveKey, activeKey, setTreatment, treatment, setcondit
         </CRow>
 
         <CRow>
-          <p>Blood Pressure</p>
+          {/* <p>Blood Pressure</p> */}
           <CCol lg={6} md={6} sm={12}>
-            <CFormFloating className="mb-3">
+            {/* <CFormFloating className="mb-3">
               <CFormInput
                 type="text"
                 id="floatingInput"
@@ -333,10 +359,22 @@ const VitalSign = ({ setActiveKey, activeKey, setTreatment, treatment, setcondit
                 style={{ height: '50px' }}
               />
               <CFormLabel htmlFor="floatingInput">Systolic</CFormLabel>
-            </CFormFloating>
+            </CFormFloating> */}
+            <CFormSelect
+              size="sm"
+              className="mb-3"
+              aria-label="Large select example"
+              value={state.bloodPressure}
+              onChange={(event) => handleInputChange(event, 'bloodPressure')}
+              style={{ height: '50px' }}
+            >
+              <option>Select Blood Pressure</option>
+              <option value="Systolic 120">Systolic 120</option>
+              <option value="Dyastolic 76">Dyastolic 76</option>
+            </CFormSelect>
           </CCol>
           <CCol lg={6} md={6} sm={12}>
-            <CFormFloating className="mb-3">
+            {/* <CFormFloating className="mb-3">
               <CFormInput
                 type="text"
                 id="floatingInput"
@@ -347,11 +385,23 @@ const VitalSign = ({ setActiveKey, activeKey, setTreatment, treatment, setcondit
                 onChange={(event) => handleInputChange(event, 'diastolic')}
               />
               <CFormLabel htmlFor="floatingInput">Diastolic</CFormLabel>
-            </CFormFloating>
+            </CFormFloating> */}
+            <CFormSelect
+              size="sm"
+              className="mb-3"
+              aria-label="Large select example"
+              value={state.oxygenSaturation}
+              onChange={(event) => handleInputChange(event, 'oxygenSaturation')}
+              style={{ height: '50px' }}
+            >
+              <option>Select Oxygen Saturation</option>
+              <option value="Pre Oxygen">Pre Oxygen</option>
+              <option value="Post Oxygen">Post Oxygen</option>
+            </CFormSelect>
           </CCol>
         </CRow>
 
-        <CRow>
+        {/* <CRow>
           <p>Oxygen Saturation</p>
           <CCol lg={6} md={6} sm={12}>
             <CFormFloating className="mb-3">
@@ -381,7 +431,7 @@ const VitalSign = ({ setActiveKey, activeKey, setTreatment, treatment, setcondit
               <CFormLabel htmlFor="floatingInput">Post Oxygen</CFormLabel>
             </CFormFloating>
           </CCol>
-        </CRow>
+        </CRow> */}
       </CRow>
 
       <CRow item xs={12}>

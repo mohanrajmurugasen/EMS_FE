@@ -59,6 +59,7 @@ const IncidentCallDetails = ({
     EMS: '',
     patientDisposition: '',
     destinationLocationType: '',
+    serviceCodeType: '',
     email1: '',
     email2: '',
   })
@@ -106,7 +107,7 @@ const IncidentCallDetails = ({
   const submitHandler = () => {
     const item = {
       userId: users.result._id,
-      serviceCode: state.serviceCode,
+      serviceCode: state.serviceCode === 'Others' ? state.serviceCodeType : state.serviceCode,
       serviceType: state.serviceType,
       dateOfIncident: state.dateOfIncident,
       timeOfIncident: state.timeOfIncident,
@@ -207,6 +208,7 @@ const IncidentCallDetails = ({
               EMS: '',
               patientDisposition: '',
               destinationLocationType: '',
+              serviceCodeType: '',
               email1: '',
               email2: '',
             }))
@@ -223,38 +225,58 @@ const IncidentCallDetails = ({
       failure('Enter valid emails!')
     }
   }
-  console.log(callDetails)
 
   return (
     <div>
       <CContainer>
         <CRow>
           <CCol lg={6} md={6} sm={12}>
-            <CFormFloating className="mb-3">
-              <CFormInput
-                type="text"
-                id="floatingInput"
-                placeholder="FirstName"
-                value={state.serviceCode}
-                onChange={(event) => handleInputChange(event, 'serviceCode')}
-                style={{ width: '100%', height: '50px' }}
-              />
-              <CFormLabel htmlFor="floatingInput">Service Code</CFormLabel>
-            </CFormFloating>
+            <CFormSelect
+              size="sm"
+              className="mb-3"
+              aria-label="Large select example"
+              value={state.serviceCode}
+              onChange={(event) => handleInputChange(event, 'serviceCode')}
+              style={{ height: '50px' }}
+            >
+              <option>Select Service Code</option>
+              <option value="Ambulance Services">Ambulance Services</option>
+              <option value="108">108</option>
+              <option value="Call Health">Call Health</option>
+              <option value="AmbiPalm">AmbiPalm</option>
+              <option value="Hospital">Hospital</option>
+              <option value="Others">Others</option>
+            </CFormSelect>
           </CCol>
+          {state.serviceCode === 'Others' && (
+            <CCol lg={6} md={6} sm={12}>
+              <CFormFloating className="mb-3">
+                <CFormInput
+                  type="text"
+                  id="floatingInput"
+                  placeholder="Enter Service Code"
+                  value={state.serviceCodeType}
+                  onChange={(event) => handleInputChange(event, 'serviceCodeType')}
+                  style={{ height: '50px' }}
+                />
+                <CFormLabel htmlFor="floatingInput">Enter Service Code</CFormLabel>
+              </CFormFloating>
+            </CCol>
+          )}
           <CCol lg={6} md={6} sm={12}>
-            <CFormFloating className="mb-3">
-              <CFormInput
-                type="text"
-                id="floatingInput"
-                placeholder="Surname"
-                name="serviceType"
-                value={state.serviceType}
-                onChange={(event) => handleInputChange(event, 'serviceType')}
-                style={{ width: '100%', height: '50px' }}
-              />
-              <CFormLabel htmlFor="floatingInput">Service Type</CFormLabel>
-            </CFormFloating>
+            <CFormSelect
+              size="sm"
+              className="mb-3"
+              aria-label="Large select example"
+              value={state.serviceType}
+              onChange={(event) => handleInputChange(event, 'serviceType')}
+              style={{ height: '50px' }}
+            >
+              <option>Select Service Type</option>
+              <option value="BLS">BLS</option>
+              <option value="ALS">ALS</option>
+              <option value="TA">TA</option>
+            </CFormSelect>
           </CCol>
         </CRow>
       </CContainer>

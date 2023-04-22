@@ -39,12 +39,20 @@ export default function Treatment() {
     <div>
       <CNav variant="tabs">
         <CNavItem>
-          <CNavLink active={activeKey === 'patientDetails'} style={{ cursor: 'pointer' }}>
+          <CNavLink
+            active={activeKey === 'patientDetails'}
+            style={{ cursor: 'pointer' }}
+            onClick={() => setActiveKey('patientDetails')}
+          >
             Patient Details
           </CNavLink>
         </CNavItem>
         <CNavItem>
-          <CNavLink style={{ cursor: 'pointer' }} active={activeKey === 'vitalSign'}>
+          <CNavLink
+            style={{ cursor: 'pointer' }}
+            active={activeKey === 'vitalSign'}
+            onClick={() => setActiveKey('vitalSign')}
+          >
             Vital Sign
           </CNavLink>
         </CNavItem>

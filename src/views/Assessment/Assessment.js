@@ -36,17 +36,29 @@ export default function Assessment() {
     <div>
       <CNav variant="tabs">
         <CNavItem>
-          <CNavLink active={activeKey === 'patientHistory'} style={{ cursor: 'pointer' }}>
+          <CNavLink
+            active={activeKey === 'patientHistory'}
+            onClick={() => setActiveKey('patientHistory')}
+            style={{ cursor: 'pointer' }}
+          >
             Patient History
           </CNavLink>
         </CNavItem>
         <CNavItem>
-          <CNavLink style={{ cursor: 'pointer' }} active={activeKey === 'primary'}>
+          <CNavLink
+            style={{ cursor: 'pointer' }}
+            active={activeKey === 'primary'}
+            onClick={() => setActiveKey('primary')}
+          >
             Primary Assessment
           </CNavLink>
         </CNavItem>
         <CNavItem>
-          <CNavLink style={{ cursor: 'pointer' }} active={activeKey === 'patientAssessment'}>
+          <CNavLink
+            style={{ cursor: 'pointer' }}
+            active={activeKey === 'patientAssessment'}
+            onClick={() => setActiveKey('patientAssessment')}
+          >
             Patient Assessment
           </CNavLink>
         </CNavItem>

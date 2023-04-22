@@ -63,6 +63,7 @@ const PatientCallDetails = ({
     email1: '',
     email2: '',
     benifits: '',
+    hospitals: '',
   })
 
   useEffect(() => {
@@ -261,6 +262,8 @@ const PatientCallDetails = ({
       privateInsurance_benefits: state.typeOfInsurance === 'Private' ? state.benifits : '',
       hospitalChart: state.hospital_chart_no,
       comments: state.commends,
+      benifits: state.benifits,
+      hospitals: state.hospitals,
     }))
     setActiveKey('vehicle')
   }
@@ -293,6 +296,7 @@ const PatientCallDetails = ({
         email1: '',
         email2: '',
         benifits: '',
+        hospitals: '',
       }))
     }
     setconditions(false)
@@ -595,6 +599,7 @@ const PatientCallDetails = ({
                 <option value="Pradhan Mantri Jeevan Jyoti Beema Yojana">
                   Pradhan Mantri Jeevan Jyoti Beema Yojana
                 </option>
+                <option value="None">None</option>
               </CFormSelect>
             ) : (
               <CFormSelect
@@ -611,6 +616,7 @@ const PatientCallDetails = ({
                 <option value="Maternity Health">Maternity Health</option>
                 <option value="Criticial lllness">Criticial lllness</option>
                 <option value="Top-up Health">Top-up Health</option>
+                <option value="None">None</option>
               </CFormSelect>
             )}
           </CCol>
@@ -618,8 +624,9 @@ const PatientCallDetails = ({
       )}
 
       <CRow>
-        <CCol lg={12} md={12} sm={12}>
-          <CFormFloating className="mb-3">
+        <p className="mt-3">Hospital Chart</p>
+        <CCol lg={6} md={6} sm={12}>
+          {/* <CFormFloating className="mb-3">
             <CFormInput
               type="text"
               id="floatingInput"
@@ -630,8 +637,44 @@ const PatientCallDetails = ({
               onChange={(event) => handleInputChange(event.target.value, 'hospital_chart_no')}
             />
             <CFormLabel htmlFor="floatingInput">Hospital Chart No</CFormLabel>
-          </CFormFloating>
+          </CFormFloating> */}
+          <CFormSelect
+            size="sm"
+            className="mb-3"
+            aria-label="Large select example"
+            value={state.hospital_chart_no}
+            onChange={(event) => handleInputChange(event.target.value, 'hospital_chart_no')}
+            style={{ height: '50px' }}
+          >
+            <option>Select City</option>
+            <option value="New Delhi">New Delhi</option>
+            <option value="Chennai">Chennai</option>
+            <option value="Mumbai">Mumbai</option>
+            <option value="Coimbatore">Coimbatore</option>
+            <option value="Hyderabad">Hyderabad</option>
+            <option value="Kulkata">Kulkata</option>
+          </CFormSelect>
         </CCol>
+        {state.hospital_chart_no === 'Coimbatore' && (
+          <CCol lg={6} md={6} sm={12}>
+            <CFormSelect
+              size="sm"
+              className="mb-3"
+              aria-label="Large select example"
+              value={state.hospitals}
+              onChange={(event) => handleInputChange(event.target.value, 'hospitals')}
+              style={{ height: '50px' }}
+            >
+              <option>Select Hospital</option>
+              <option value="Govt">Govt</option>
+              <option value="KMCH">KMCH</option>
+              <option value="GKNM">GKNM</option>
+              <option value="PSG">PSG</option>
+              <option value="Ramakrishna">Ramakrishna</option>
+              <option value="KG">KG</option>
+            </CFormSelect>
+          </CCol>
+        )}
       </CRow>
 
       <CRow>
@@ -645,7 +688,7 @@ const PatientCallDetails = ({
               value={state.commends}
               onChange={(event) => handleInputChange(event.target.value, 'commends')}
             />
-            <CFormLabel htmlFor="floatingInput">Commends</CFormLabel>
+            <CFormLabel htmlFor="floatingInput">Comments</CFormLabel>
           </CFormFloating>
         </CCol>
       </CRow>

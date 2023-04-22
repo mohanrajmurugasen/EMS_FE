@@ -30,6 +30,8 @@ export default function CallDetails() {
     privateInsurance_benefits: '',
     hospitalChart: '',
     comments: '',
+    benifits: '',
+    hospitals: '',
     timeNotified: '',
     timeEnroute: '',
     timeAtScene: '',
@@ -53,17 +55,29 @@ export default function CallDetails() {
     <div>
       <CNav variant="tabs">
         <CNavItem>
-          <CNavLink active={activeKey === 'patient'} style={{ cursor: 'pointer' }}>
+          <CNavLink
+            active={activeKey === 'patient'}
+            onClick={() => setActiveKey('patient')}
+            style={{ cursor: 'pointer' }}
+          >
             Patient Details
           </CNavLink>
         </CNavItem>
         <CNavItem>
-          <CNavLink style={{ cursor: 'pointer' }} active={activeKey === 'vehicle'}>
+          <CNavLink
+            style={{ cursor: 'pointer' }}
+            onClick={() => setActiveKey('vehicle')}
+            active={activeKey === 'vehicle'}
+          >
             Vehicle Details
           </CNavLink>
         </CNavItem>
         <CNavItem>
-          <CNavLink style={{ cursor: 'pointer' }} active={activeKey === 'incident'}>
+          <CNavLink
+            style={{ cursor: 'pointer' }}
+            onClick={() => setActiveKey('incident')}
+            active={activeKey === 'incident'}
+          >
             Incident Details
           </CNavLink>
         </CNavItem>
