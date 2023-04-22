@@ -660,7 +660,7 @@ const PatientCallDetails = ({
         </CCol>
         <CCol lg={6} md={6} sm={6}>
           <div class="d-grid gap-2 col-6 mx-auto">
-            <button class="btn btn-success" disabled={submitCon} onClick={() => nextTab()}>
+            <button class="btn btn-success" onClick={() => nextTab()}>
               Next
             </button>
           </div>

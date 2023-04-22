@@ -589,7 +589,7 @@ const IncidentCallDetails = ({
           <div class="d-grid gap-2 col-6 mx-auto">
             <button
               class="btn btn-success"
-              disabled={submitCon}
+              // disabled={submitCon}
               onClick={() => setVisible(!visible)}
             >
               Submit
