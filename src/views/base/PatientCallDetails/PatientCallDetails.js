@@ -22,6 +22,8 @@ import {
 import { Input } from 'reactstrap'
 import AuthAxios from 'src/Interceptors/AuthAxios'
 import { ToastContainer, toast } from 'react-toastify'
+import { useDispatch, useSelector } from 'react-redux'
+import { addFormValue } from 'src/Redux/Actions/FormAction'
 
 const PatientCallDetails = ({
   setActiveKey,
@@ -37,6 +39,7 @@ const PatientCallDetails = ({
 
   const success = (e) => toast.success(e)
   const failure = (e) => toast.error(e)
+  const state1 = useSelector((state) => state.formValueReducer.formValue)
 
   const [state, setState] = useState({
     firstName: '',
@@ -65,6 +68,8 @@ const PatientCallDetails = ({
     benifits: '',
     hospitals: '',
   })
+
+  const dispatch = useDispatch()
 
   useEffect(() => {
     if (state.medicalInsurance === 'Yes') {
@@ -151,6 +156,10 @@ const PatientCallDetails = ({
     setState((prevProps) => ({
       ...prevProps,
       [name]: event,
+    }))
+    dispatch(addFormValue({
+      name: name,
+      value: event
     }))
   }
 
@@ -311,7 +320,7 @@ const PatientCallDetails = ({
               type="text"
               id="floatingInput"
               placeholder="FirstName"
-              value={state.firstName}
+              value={state1.firstName}
               onChange={(event) => handleInputChange(event.target.value, 'firstName')}
               style={{ height: '50px' }}
             />
@@ -324,7 +333,7 @@ const PatientCallDetails = ({
               type="text"
               id="floatingInput"
               placeholder="Surname"
-              value={state.sureName}
+              value={state1.sureName}
               onChange={(event) => handleInputChange(event.target.value, 'sureName')}
               style={{ height: '50px' }}
             />
@@ -340,7 +349,7 @@ const PatientCallDetails = ({
               type="text"
               id="floatingInput"
               placeholder="Street Address"
-              value={state.street}
+              value={state1.street}
               onChange={(event) => handleInputChange(event.target.value, 'street')}
               style={{ height: '50px' }}
             />
@@ -356,7 +365,7 @@ const PatientCallDetails = ({
               type="text"
               id="floatingInput"
               placeholder="City"
-              value={state.city}
+              value={state1.city}
               onChange={(event) => handleInputChange(event.target.value, 'city')}
               style={{ height: '50px' }}
             />
@@ -369,7 +378,7 @@ const PatientCallDetails = ({
               type="text"
               id="floatingInput"
               placeholder="State"
-              value={state.state}
+              value={state1.state}
               onChange={(event) => handleInputChange(event.target.value, 'state')}
               style={{ height: '50px' }}
             />
@@ -385,7 +394,7 @@ const PatientCallDetails = ({
               type="text"
               id="floatingInput"
               placeholder="Country"
-              value={state.country}
+              value={state1.country}
               onChange={(event) => handleInputChange(event.target.value, 'country')}
               style={{ height: '50px' }}
             />
@@ -398,7 +407,7 @@ const PatientCallDetails = ({
               type="text"
               id="floatingInput"
               placeholder="Postal Code"
-              value={state.postalCode}
+              value={state1.postalCode}
               onChange={(event) => handleInputChange(event.target.value, 'postalCode')}
               style={{ height: '50px' }}
             />
@@ -414,7 +423,7 @@ const PatientCallDetails = ({
               type="text"
               id="floatingInput"
               placeholder="Telephone"
-              value={state.telePhone}
+              value={state1.telePhone}
               onChange={(event) => handleInputChange(event.target.value, 'telePhone')}
               style={{ height: '50px' }}
             />
@@ -427,7 +436,7 @@ const PatientCallDetails = ({
               type="date"
               style={{ height: '50px' }}
               name="DOB"
-              value={state.DOB}
+              value={state1.DOB}
               onChange={(event) => handleInputChange(event.target.value, 'DOB')}
             ></Input>
             <CFormLabel htmlFor="floatingInput">Date of Birth</CFormLabel>
@@ -442,7 +451,7 @@ const PatientCallDetails = ({
               type="text"
               id="floatingInput"
               placeholder="Age"
-              value={state.age}
+              value={state1.age}
               onChange={(event) => handleInputChange(event.target.value, 'age')}
               style={{ height: '50px' }}
             />
@@ -455,7 +464,7 @@ const PatientCallDetails = ({
               type="text"
               id="floatingInput"
               placeholder="Aadhar"
-              value={state.aadhar}
+              value={state1.aadhar}
               onChange={(event) => handleInputChange(event.target.value, 'aadhar')}
               style={{ height: '50px' }}
             />
@@ -473,7 +482,7 @@ const PatientCallDetails = ({
               type="radio"
               value="Male"
               label="Male"
-              checked={state.gender === 'Male' ? true : false}
+              checked={state1.gender === 'Male' ? true : false}
               onClick={() => handleInputChange('Male', 'gender')}
             />
             <CFormCheck
@@ -481,7 +490,7 @@ const PatientCallDetails = ({
               type="radio"
               value="Female"
               label="Female"
-              checked={state.gender === 'Female' ? true : false}
+              checked={state1.gender === 'Female' ? true : false}
               onClick={() => handleInputChange('Female', 'gender')}
             />
             <CFormCheck
@@ -489,7 +498,7 @@ const PatientCallDetails = ({
               type="radio"
               value="Other"
               label="Other"
-              checked={state.gender === 'Other' ? true : false}
+              checked={state1.gender === 'Other' ? true : false}
               onClick={() => handleInputChange('Other', 'gender')}
             />
           </div>
@@ -502,7 +511,7 @@ const PatientCallDetails = ({
               type="radio"
               value="Yes"
               label="Yes"
-              checked={state.medicalInsurance === 'Yes' ? true : false}
+              checked={state1.medicalInsurance === 'Yes' ? true : false}
               onClick={() => handleInputChange('Yes', 'medicalInsurance')}
             />
             <CFormCheck
@@ -510,14 +519,14 @@ const PatientCallDetails = ({
               type="radio"
               value="No"
               label="No"
-              checked={state.medicalInsurance === 'No' ? true : false}
+              checked={state1.medicalInsurance === 'No' ? true : false}
               onClick={() => handleInputChange('No', 'medicalInsurance')}
             />
           </div>
         </CCol>
       </CRow>
 
-      {state.medicalInsurance === 'Yes' && (
+      {state1.medicalInsurance === 'Yes' && (
         <CRow>
           <CCol lg={12} md={12} sm={12}>
             <CFormLabel htmlFor="floatingInput" className="mt-3">
@@ -527,7 +536,7 @@ const PatientCallDetails = ({
               size="lg"
               className="mb-3"
               aria-label="Large select example"
-              value={state.typeOfInsurance}
+              value={state1.typeOfInsurance}
               onChange={(event) => handleInputChange(event.target.value, 'typeOfInsurance')}
             >
               <option>Types Of Insurance</option>
@@ -538,11 +547,11 @@ const PatientCallDetails = ({
         </CRow>
       )}
 
-      {state.medicalInsurance === 'Yes' && (
+      {state1.medicalInsurance === 'Yes' && (
         <CRow>
           <CCol>
             <CFormLabel htmlFor="floatingInput">
-              {state.typeOfInsurance === 'Government'
+              {state1.typeOfInsurance === 'Government'
                 ? `((For Goverment Insurance))`
                 : `((For Private Insurance))`}
             </CFormLabel>
@@ -550,7 +559,7 @@ const PatientCallDetails = ({
         </CRow>
       )}
 
-      {state.medicalInsurance === 'Yes' && (
+      {state1.medicalInsurance === 'Yes' && (
         <CRow>
           <CCol lg={12} md={12} sm={12}>
             <CFormFloating className="mb-3">
@@ -558,7 +567,7 @@ const PatientCallDetails = ({
                 type="text"
                 id="floatingInput"
                 placeholder="Insurance ID Number"
-                value={state.govt_ins_Id}
+                value={state1.govt_ins_Id}
                 onChange={(event) => handleInputChange(event.target.value, 'govt_ins_Id')}
                 style={{ height: '50px' }}
               />
@@ -568,16 +577,16 @@ const PatientCallDetails = ({
         </CRow>
       )}
 
-      {state.medicalInsurance === 'Yes' && (
+      {state1.medicalInsurance === 'Yes' && (
         <CRow>
-          {state.typeOfInsurance === 'Government' && (
+          {state1.typeOfInsurance === 'Government' && (
             <CCol lg={6} md={6} sm={12}>
               <CFormFloating className="mb-3">
                 <CFormInput
                   type="text"
                   id="floatingInput"
                   placeholder="FirstName"
-                  value={state.coverage_Amount}
+                  value={state1.coverage_Amount}
                   onChange={(event) => handleInputChange(event.target.value, 'coverage_Amount')}
                   style={{ height: '50px' }}
                 />
@@ -586,12 +595,12 @@ const PatientCallDetails = ({
             </CCol>
           )}
           <CCol lg={6} md={6} sm={12}>
-            {state.typeOfInsurance === 'Government' ? (
+            {state1.typeOfInsurance === 'Government' ? (
               <CFormSelect
                 size="lg"
                 className="mb-3"
                 aria-label="Large select example"
-                value={state.benifits}
+                value={state1.benifits}
                 onChange={(event) => handleInputChange(event.target.value, 'benifits')}
               >
                 <option>Types Of Benefits</option>
@@ -606,7 +615,7 @@ const PatientCallDetails = ({
                 size="lg"
                 className="mb-3"
                 aria-label="Large select example"
-                value={state.benifits}
+                value={state1.benifits}
                 onChange={(event) => handleInputChange(event.target.value, 'benifits')}
               >
                 <option>Types Of Benefits</option>
@@ -633,7 +642,7 @@ const PatientCallDetails = ({
               placeholder="FirstName"
               name="hospital_chart_no"
               className="mt-3"
-              value={state.hospital_chart_no}
+              value={state1.hospital_chart_no}
               onChange={(event) => handleInputChange(event.target.value, 'hospital_chart_no')}
             />
             <CFormLabel htmlFor="floatingInput">Hospital Chart No</CFormLabel>
@@ -642,7 +651,7 @@ const PatientCallDetails = ({
             size="sm"
             className="mb-3"
             aria-label="Large select example"
-            value={state.hospital_chart_no}
+            value={state1.hospital_chart_no}
             onChange={(event) => handleInputChange(event.target.value, 'hospital_chart_no')}
             style={{ height: '50px' }}
           >
@@ -655,13 +664,13 @@ const PatientCallDetails = ({
             <option value="Kulkata">Kulkata</option>
           </CFormSelect>
         </CCol>
-        {state.hospital_chart_no === 'Coimbatore' && (
+        {state1.hospital_chart_no === 'Coimbatore' && (
           <CCol lg={6} md={6} sm={12}>
             <CFormSelect
               size="sm"
               className="mb-3"
               aria-label="Large select example"
-              value={state.hospitals}
+              value={state1.hospitals}
               onChange={(event) => handleInputChange(event.target.value, 'hospitals')}
               style={{ height: '50px' }}
             >
@@ -685,7 +694,7 @@ const PatientCallDetails = ({
               id="floatingInput"
               placeholder=""
               name="commends"
-              value={state.commends}
+              value={state1.commends}
               onChange={(event) => handleInputChange(event.target.value, 'commends')}
             />
             <CFormLabel htmlFor="floatingInput">Comments</CFormLabel>

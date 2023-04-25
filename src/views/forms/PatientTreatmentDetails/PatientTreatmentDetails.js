@@ -20,6 +20,9 @@ import {
 import './style.css'
 import AuthAxios from 'src/Interceptors/AuthAxios'
 import { ToastContainer, toast } from 'react-toastify'
+import { useNavigate } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import { addFormValue } from 'src/Redux/Actions/FormAction'
 
 const PatientTreatmentDetails = ({
   setActiveKey,
@@ -37,6 +40,10 @@ const PatientTreatmentDetails = ({
   const failure = (e) => toast.error(e)
 
   const [submitCon, setsubmitCon] = useState(true)
+  const navigate = useNavigate()
+
+  const state1 = useSelector((state) => state.formValueReducer.formValue)
+  const dispatch = useDispatch()
 
   const [state, setState] = useState({
     userId: '1',
@@ -81,6 +88,10 @@ const PatientTreatmentDetails = ({
     setState((prevProps) => ({
       ...prevProps,
       [name]: value,
+    }))
+    dispatch(addFormValue({
+      name: name,
+      value: value
     }))
   }
 
@@ -192,13 +203,17 @@ const PatientTreatmentDetails = ({
                   ...prevProps,
                   procedureStartTime: e.format('LT'),
                 }))
+                dispatch(addFormValue({
+                  name: "procedureStartTime",
+                  value: e.format('LT')
+                }))
                 setTime(e.format('LT'))
               }}
               className="times"
             />
           </CCol>
           <CCol lg={6} md={6} sm={12}>
-            <p>Treatment End Time</p>
+            <p>Procedure End Time</p>
             <TimePicker
               placeholder="Select Time"
               use12Hours
@@ -209,6 +224,10 @@ const PatientTreatmentDetails = ({
                 setState((prevProps) => ({
                   ...prevProps,
                   procedureEndTime: e.format('LT'),
+                }))
+                dispatch(addFormValue({
+                  name: "procedureEndTime",
+                  value: e.format('LT')
                 }))
                 setTime(e.format('LT'))
               }}
@@ -225,7 +244,7 @@ const PatientTreatmentDetails = ({
                 id="floatingInput"
                 placeholder="FirstName"
                 name="procedureType"
-                value={state.procedureType}
+                value={state1.procedureType}
                 onChange={(event) => handleInputChange(event, 'procedureType')}
                 style={{ height: '50px' }}
               />
@@ -239,7 +258,7 @@ const PatientTreatmentDetails = ({
                 id="floatingInput"
                 placeholder="Surname"
                 name="state"
-                value={state.deviceMethod}
+                value={state1.deviceMethod}
                 onChange={(event) => handleInputChange(event, 'deviceMethod')}
                 style={{ height: '50px' }}
               />
@@ -253,7 +272,7 @@ const PatientTreatmentDetails = ({
                 id="floatingInput"
                 placeholder="Surname"
                 name="technicianID"
-                value={state.technicianID}
+                value={state1.technicianID}
                 onChange={(event) => handleInputChange(event, 'technicianID')}
                 style={{ height: '50px' }}
               />
@@ -269,7 +288,7 @@ const PatientTreatmentDetails = ({
                 id="floatingInput"
                 placeholder="Surname"
                 name="deviceSize"
-                value={state.deviceSize}
+                value={state1.deviceSize}
                 onChange={(event) => handleInputChange(event, 'deviceSize')}
                 style={{ height: '50px' }}
                 className="mb-3"
@@ -284,7 +303,7 @@ const PatientTreatmentDetails = ({
                 type="text"
                 id="floatingInput"
                 placeholder="Outcome"
-                value={state.outcome}
+                value={state1.outcome}
                 onChange={(event) => handleInputChange(event, 'outcome')}
                 style={{ height: '50px' }}
                 className="mb-3"
@@ -299,7 +318,7 @@ const PatientTreatmentDetails = ({
                 type="text"
                 id="floatingInput"
                 placeholder="Successful"
-                value={state.successfull}
+                value={state1.successfull}
                 onChange={(event) => handleInputChange(event, 'successfull')}
                 style={{ height: '50px' }}
                 className="mb-3"
@@ -317,7 +336,7 @@ const PatientTreatmentDetails = ({
                 id="floatingInput"
                 placeholder="Surname"
                 name="treatment"
-                value={state.treatment}
+                value={state1.treatment}
                 onChange={(event) => handleInputChange(event, 'treatment')}
                 style={{ height: '50px' }}
               />
@@ -332,7 +351,7 @@ const PatientTreatmentDetails = ({
                 id="floatingInput"
                 placeholder="Surname"
                 name="todalTime"
-                value={state.totalTime}
+                value={state1.totalTime}
                 onChange={(event) => handleInputChange(event, 'totalTime')}
                 style={{ height: '50px' }}
               />
@@ -346,7 +365,7 @@ const PatientTreatmentDetails = ({
                 type="text"
                 id="floatingInput"
                 placeholder="Treatment Type"
-                value={state.treatmentType}
+                value={state1.treatmentType}
                 onChange={(event) => handleInputChange(event, 'treatmentType')}
                 style={{ height: '50px' }}
               />
@@ -361,7 +380,7 @@ const PatientTreatmentDetails = ({
                 id="floatingInput"
                 placeholder="Surname"
                 name="adminstrativeRoute"
-                value={state.administrativeRoute}
+                value={state1.administrativeRoute}
                 onChange={(event) => handleInputChange(event, 'administrativeRoute')}
                 style={{ height: '50px' }}
               />
@@ -375,7 +394,7 @@ const PatientTreatmentDetails = ({
         <CRow>
           <CCol lg={6} md={6} sm={6}>
             <div class="d-grid gap-2 col-6 mx-auto">
-              <button class="btn btn-secondary" disabled>
+              <button class="btn btn-secondary" onClick={() => navigate("/Assessment")}>
                 Back
               </button>
             </div>

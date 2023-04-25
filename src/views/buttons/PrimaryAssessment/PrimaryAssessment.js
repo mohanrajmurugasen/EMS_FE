@@ -16,6 +16,8 @@ import {
 } from '@coreui/react'
 import { ToastContainer, toast } from 'react-toastify'
 import AuthAxios from 'src/Interceptors/AuthAxios'
+import { useDispatch, useSelector } from 'react-redux'
+import { addFormValue } from 'src/Redux/Actions/FormAction'
 
 const PrimaryAssessment = ({
   setActiveKey,
@@ -31,6 +33,9 @@ const PrimaryAssessment = ({
   const [disabel, setdisabel] = useState(true)
 
   const [submitCon, setsubmitCon] = useState(true)
+
+  const state1 = useSelector((state) => state.formValueReducer.formValue)
+  const dispatch = useDispatch()
 
   const [state, setState] = useState({
     userId: '1',
@@ -63,6 +68,10 @@ const PrimaryAssessment = ({
     setState((prevProps) => ({
       ...prevProps,
       [name]: value,
+    }))
+    dispatch(addFormValue({
+      name: name,
+      value: value
     }))
   }
 
@@ -150,7 +159,7 @@ const PrimaryAssessment = ({
                 id="floatingInput"
                 placeholder="FirstName"
                 name="neroResponse"
-                value={state.neroResponse}
+                value={state1.neroResponse}
                 onChange={(event) => handleInputChange(event, 'neroResponse')}
                 style={{ height: '50px' }}
               />
@@ -165,7 +174,7 @@ const PrimaryAssessment = ({
                 id="floatingInput"
                 placeholder="FirstName"
                 name="bodySystem"
-                value={state.bodySystem}
+                value={state1.bodySystem}
                 onChange={(event) => handleInputChange(event, 'bodySystem')}
                 style={{ height: '50px' }}
               />
@@ -181,7 +190,7 @@ const PrimaryAssessment = ({
                 id="floatingInput"
                 placeholder="FirstName"
                 name="glasGlow"
-                value={state.glasGlow}
+                value={state1.glasGlow}
                 onChange={(event) => handleInputChange(event, 'glasGlow')}
                 style={{ height: '50px' }}
               />
@@ -196,7 +205,7 @@ const PrimaryAssessment = ({
                 id="floatingInput"
                 placeholder="FirstName"
                 name="generalAssessment"
-                value={state.generalAssessment}
+                value={state1.generalAssessment}
                 onChange={(event) => handleInputChange(event, 'generalAssessment')}
                 style={{ height: '50px' }}
               />
@@ -212,7 +221,7 @@ const PrimaryAssessment = ({
                 id="floatingInput"
                 placeholder="FirstName"
                 name="airway"
-                value={state.airway}
+                value={state1.airway}
                 onChange={(event) => handleInputChange(event, 'airway')}
                 style={{ height: '50px' }}
               />
@@ -227,7 +236,7 @@ const PrimaryAssessment = ({
                 id="floatingInput"
                 placeholder="FirstName"
                 name="symptoms"
-                value={state.symptoms}
+                value={state1.symptoms}
                 onChange={(event) => handleInputChange(event, 'symptoms')}
                 style={{ height: '50px' }}
               />

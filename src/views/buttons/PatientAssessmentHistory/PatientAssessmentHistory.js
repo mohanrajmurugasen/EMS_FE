@@ -20,6 +20,9 @@ import {
 import { ToastContainer, toast } from 'react-toastify'
 import AuthAxios from 'src/Interceptors/AuthAxios'
 import { Input } from 'reactstrap'
+import { useNavigate } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import { addFormValue } from 'src/Redux/Actions/FormAction'
 
 const PatientAssessmentHistory = ({
   setActiveKey,
@@ -33,8 +36,12 @@ const PatientAssessmentHistory = ({
   const success = (e) => toast.success(e)
   const failure = (e) => toast.error(e)
   const [disabel, setdisabel] = useState(true)
+  const navigate = useNavigate()
 
   const [submitCon, setsubmitCon] = useState(true)
+
+  const state1 = useSelector((state) => state.formValueReducer.formValue)
+  const dispatch = useDispatch()
 
   const [state, setState] = useState({
     userId: '1',
@@ -71,6 +78,10 @@ const PatientAssessmentHistory = ({
     setState((prevProps) => ({
       ...prevProps,
       [name]: value,
+    }))
+    dispatch(addFormValue({
+      name: name,
+      value: value
     }))
   }
 
@@ -162,7 +173,7 @@ const PatientAssessmentHistory = ({
               <Input
                 type="date"
                 name="dateOfInjury"
-                value={state.dateOfInjury}
+                value={state1.dateOfInjury}
                 onChange={(event) => handleInputChange(event, 'dateOfInjury')}
                 style={{ width: '100%', height: '50px' }}
               ></Input>
@@ -174,7 +185,7 @@ const PatientAssessmentHistory = ({
               <Input
                 type="Time"
                 name="timeOfInjury"
-                value={state.timeOfInjury}
+                value={state1.timeOfInjury}
                 onChange={(event) => handleInputChange(event, 'timeOfInjury')}
                 style={{ width: '100%', height: '50px' }}
               ></Input>
@@ -189,7 +200,7 @@ const PatientAssessmentHistory = ({
                 type="text"
                 id="floatingInput"
                 placeholder="Co-Respondars"
-                value={state.coResponders}
+                value={state1.coResponders}
                 onChange={(event) => handleInputChange(event, 'coResponders')}
                 style={{ height: '50px' }}
               />
@@ -202,7 +213,7 @@ const PatientAssessmentHistory = ({
                 type="text"
                 id="floatingInput"
                 placeholder="Treatment Rendered"
-                value={state.treatmentRendered}
+                value={state1.treatmentRendered}
                 onChange={(event) => handleInputChange(event, 'treatmentRendered')}
                 style={{ height: '50px' }}
               />
@@ -219,7 +230,7 @@ const PatientAssessmentHistory = ({
                 type="text"
                 id="floatingInput"
                 placeholder="Patient Condition at Destination"
-                value={state.patientCondition}
+                value={state1.patientCondition}
                 onChange={(event) => handleInputChange(event, 'patientCondition')}
                 style={{ height: '50px' }}
               />
@@ -232,7 +243,7 @@ const PatientAssessmentHistory = ({
                 type="text"
                 id="floatingInput"
                 placeholder="Patient Displacement"
-                value={state.patientDisplacement}
+                value={state1.patientDisplacement}
                 onChange={(event) => handleInputChange(event, 'patientDisplacement')}
                 style={{ height: '50px' }}
               />
@@ -249,7 +260,7 @@ const PatientAssessmentHistory = ({
                 type="text"
                 id="floatingInput"
                 placeholder="Suspected Intoxication"
-                value={state.suspectedIntoxication}
+                value={state1.suspectedIntoxication}
                 onChange={(event) => handleInputChange(event, 'suspectedIntoxication')}
                 style={{ height: '50px' }}
               />
@@ -263,7 +274,7 @@ const PatientAssessmentHistory = ({
                 type="text"
                 id="floatingInput"
                 placeholder="Chief Complaint"
-                value={state.chiefComplaint}
+                value={state1.chiefComplaint}
                 onChange={(event) => handleInputChange(event, 'chiefComplaint')}
                 style={{ height: '50px' }}
               />
@@ -277,7 +288,7 @@ const PatientAssessmentHistory = ({
         <CRow>
           <CCol lg={6} md={6} sm={6}>
             <div class="d-grid gap-2 col-6 mx-auto">
-              <button class="btn btn-secondary" disabled>
+              <button class="btn btn-secondary" onClick={() => navigate("/CallDetails")}>
                 Back
               </button>
             </div>

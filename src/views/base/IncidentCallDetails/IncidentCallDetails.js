@@ -19,6 +19,9 @@ import { CButton } from '@coreui/react'
 import { ToastContainer, toast } from 'react-toastify'
 import { Input } from 'reactstrap'
 import AuthAxios from 'src/Interceptors/AuthAxios'
+import { useDispatch, useSelector } from 'react-redux'
+import { addFormValue } from 'src/Redux/Actions/FormAction'
+import { useNavigate } from 'react-router-dom'
 
 const IncidentCallDetails = ({
   setActiveKey,
@@ -31,8 +34,11 @@ const IncidentCallDetails = ({
   const success = (e) => toast.success(e)
   const [disabel, setdisabel] = useState(true)
   const failure = (e) => toast.error(e)
+  const navigate = useNavigate()
 
   const [submitCon, setsubmitCon] = useState(true)
+  const state1 = useSelector((state) => state.formValueReducer.formValue)
+  const dispatch = useDispatch()
 
   const [state, setState] = useState({
     userId: '',
@@ -101,6 +107,12 @@ const IncidentCallDetails = ({
       ...prevProps,
       [name]: value,
     }))
+    dispatch(
+      addFormValue({
+        name: name,
+        value: value,
+      }),
+    )
   }
   const users = JSON.parse(localStorage.getItem('user'))
 
@@ -235,7 +247,7 @@ const IncidentCallDetails = ({
               size="sm"
               className="mb-3"
               aria-label="Large select example"
-              value={state.serviceCode}
+              value={state1.serviceCode}
               onChange={(event) => handleInputChange(event, 'serviceCode')}
               style={{ height: '50px' }}
             >
@@ -248,14 +260,14 @@ const IncidentCallDetails = ({
               <option value="Others">Others</option>
             </CFormSelect>
           </CCol>
-          {state.serviceCode === 'Others' && (
+          {state1.serviceCode === 'Others' && (
             <CCol lg={6} md={6} sm={12}>
               <CFormFloating className="mb-3">
                 <CFormInput
                   type="text"
                   id="floatingInput"
                   placeholder="Enter Service Code"
-                  value={state.serviceCodeType}
+                  value={state1.serviceCodeType}
                   onChange={(event) => handleInputChange(event, 'serviceCodeType')}
                   style={{ height: '50px' }}
                 />
@@ -268,7 +280,7 @@ const IncidentCallDetails = ({
               size="sm"
               className="mb-3"
               aria-label="Large select example"
-              value={state.serviceType}
+              value={state1.serviceType}
               onChange={(event) => handleInputChange(event, 'serviceType')}
               style={{ height: '50px' }}
             >
@@ -288,7 +300,7 @@ const IncidentCallDetails = ({
               <Input
                 type="date"
                 name="dateOfIncident"
-                value={state.dateOfIncident}
+                value={state1.dateOfIncident}
                 onChange={(event) => handleInputChange(event, 'dateOfIncident')}
                 style={{ width: '100%', height: '50px' }}
                 className=""
@@ -301,7 +313,7 @@ const IncidentCallDetails = ({
               <Input
                 type="Time"
                 name="timeOfIncident"
-                value={state.timeOfIncident}
+                value={state1.timeOfIncident}
                 onChange={(event) => handleInputChange(event, 'timeOfIncident')}
                 style={{ width: '100%', height: '50px' }}
                 className=""
@@ -320,8 +332,8 @@ const IncidentCallDetails = ({
                 type="text"
                 id="floatingInput"
                 placeholder="Destination Determinant"
-                value={state.destinationDeterminant}
-                onChange={(event) => handleInputChange(event, 'destinationDeterminant')}
+                value={state1.inci_destinationDeterminant}
+                onChange={(event) => handleInputChange(event, 'inci_destinationDeterminant')}
                 style={{ height: '50px' }}
               />
               <CFormLabel htmlFor="floatingInput">Destination Determinant</CFormLabel>
@@ -333,7 +345,7 @@ const IncidentCallDetails = ({
                 type="text"
                 id="floatingInput"
                 placeholder="Destination Determinant"
-                value={state.destinationLocationType}
+                value={state1.destinationLocationType}
                 onChange={(event) => handleInputChange(event, 'destinationLocationType')}
                 style={{ height: '50px' }}
               />
@@ -352,7 +364,7 @@ const IncidentCallDetails = ({
                 id="floatingInput"
                 placeholder="FirstName"
                 name="graphicLocator"
-                value={state.graphicLocator}
+                value={state1.graphicLocator}
                 onChange={(event) => handleInputChange(event, 'graphicLocator')}
                 style={{ height: '50px' }}
               />
@@ -366,7 +378,7 @@ const IncidentCallDetails = ({
                 id="floatingInput"
                 placeholder="Surname"
                 name="sceneFacility"
-                value={state.sceneFacility}
+                value={state1.sceneFacility}
                 onChange={(event) => handleInputChange(event, 'sceneFacility')}
                 style={{ height: '50px' }}
               />
@@ -384,7 +396,7 @@ const IncidentCallDetails = ({
                 type="text"
                 id="floatingInput"
                 placeholder="Scene Location Typ"
-                value={state.sceneLocationType}
+                value={state1.sceneLocationType}
                 onChange={(event) => handleInputChange(event, 'sceneLocationType')}
                 style={{ height: '50px' }}
               />
@@ -397,7 +409,7 @@ const IncidentCallDetails = ({
                 type="text"
                 id="floatingInput"
                 placeholder="Destination Facility"
-                value={state.destinationFacility}
+                value={state1.destinationFacility}
                 onChange={(event) => handleInputChange(event, 'destinationFacility')}
                 style={{ height: '50px' }}
               />
@@ -415,7 +427,7 @@ const IncidentCallDetails = ({
                 type="text"
                 id="floatingInput"
                 placeholder="Patient Disposition"
-                value={state.patientDisposition}
+                value={state1.patientDisposition}
                 onChange={(event) => handleInputChange(event, 'patientDisposition')}
                 style={{ height: '50px' }}
               />
@@ -428,7 +440,7 @@ const IncidentCallDetails = ({
                 type="text"
                 id="floatingInput"
                 placeholder="Factors Affecting EMS"
-                value={state.EMS}
+                value={state1.EMS}
                 onChange={(event) => handleInputChange(event, 'EMS')}
                 style={{ height: '50px' }}
               />
@@ -448,7 +460,7 @@ const IncidentCallDetails = ({
                 id="floatingInput"
                 placeholder="FirstName"
                 name="incidentLocation_street"
-                value={state.incidentLocation_street}
+                value={state1.incidentLocation_street}
                 onChange={(event) => handleInputChange(event, 'incidentLocation_street')}
                 style={{ height: '50px' }}
               />
@@ -462,7 +474,7 @@ const IncidentCallDetails = ({
                 id="floatingInput"
                 placeholder="Surname"
                 name="incidentLocation_city"
-                value={state.incidentLocation_city}
+                value={state1.incidentLocation_city}
                 onChange={(event) => handleInputChange(event, 'incidentLocation_city')}
                 style={{ height: '50px' }}
               />
@@ -476,7 +488,7 @@ const IncidentCallDetails = ({
                 id="floatingInput"
                 placeholder="FirstName"
                 name="incidentLocation_state"
-                value={state.incidentLocation_state}
+                value={state1.incidentLocation_state}
                 onChange={(event) => handleInputChange(event, 'incidentLocation_state')}
                 style={{ height: '50px' }}
               />
@@ -490,7 +502,7 @@ const IncidentCallDetails = ({
                 id="floatingInput"
                 placeholder="Surname"
                 name="incidentLocation_postalCode"
-                value={state.incidentLocation_postalCode}
+                value={state1.incidentLocation_postalCode}
                 onChange={(event) => handleInputChange(event, 'incidentLocation_postalCode')}
                 style={{ height: '50px' }}
               />
@@ -510,7 +522,7 @@ const IncidentCallDetails = ({
                 id="floatingInput"
                 placeholder="FirstName"
                 name="destinationLocation_street"
-                value={state.destinationLocation_street}
+                value={state1.destinationLocation_street}
                 onChange={(event) => handleInputChange(event, 'destinationLocation_street')}
                 style={{ height: '50px' }}
               />
@@ -524,7 +536,7 @@ const IncidentCallDetails = ({
                 id="floatingInput"
                 placeholder="Surname"
                 name="destinationLocation_city"
-                value={state.destinationLocation_city}
+                value={state1.destinationLocation_city}
                 onChange={(event) => handleInputChange(event, 'destinationLocation_city')}
                 style={{ height: '50px' }}
               />
@@ -539,7 +551,7 @@ const IncidentCallDetails = ({
                 id="floatingInput"
                 placeholder="FirstName"
                 name="destinationLocation_state"
-                value={state.destinationLocation_state}
+                value={state1.destinationLocation_state}
                 onChange={(event) => handleInputChange(event, 'destinationLocation_state')}
                 style={{ height: '50px' }}
               />
@@ -553,7 +565,7 @@ const IncidentCallDetails = ({
                 id="floatingInput"
                 placeholder="Surname"
                 name="destinationLocation_postalCode"
-                value={state.destinationLocation_postalCode}
+                value={state1.destinationLocation_postalCode}
                 onChange={(event) => handleInputChange(event, 'destinationLocation_postalCode')}
                 style={{ height: '50px' }}
               />
@@ -574,7 +586,7 @@ const IncidentCallDetails = ({
                   id="floatingInput"
                   placeholder="FirstName"
                   name="servicePayment_responsibility"
-                  value={state.servicePayment_responsibility}
+                  value={state1.servicePayment_responsibility}
                   onChange={(event) => handleInputChange(event, 'servicePayment_responsibility')}
                   style={{ height: '50px' }}
                 />
@@ -588,7 +600,7 @@ const IncidentCallDetails = ({
                   id="floatingInput"
                   placeholder="Surname"
                   name="servicePayment_number"
-                  value={state.servicePayment_number}
+                  value={state1.servicePayment_number}
                   onChange={(event) => handleInputChange(event, 'servicePayment_number')}
                   style={{ height: '50px' }}
                 />
@@ -612,9 +624,10 @@ const IncidentCallDetails = ({
             <button
               class="btn btn-success"
               // disabled={submitCon}
-              onClick={() => setVisible(!visible)}
+              // onClick={() => setVisible(!visible)}
+              onClick={() => navigate('/Assessment')}
             >
-              Submit
+              Next
             </button>
           </div>
         </CCol>

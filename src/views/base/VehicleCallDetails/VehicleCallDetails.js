@@ -23,6 +23,8 @@ import {
 import './style.css'
 import AuthAxios from 'src/Interceptors/AuthAxios'
 import { ToastContainer, toast } from 'react-toastify'
+import { useDispatch, useSelector } from 'react-redux'
+import { addFormValue } from 'src/Redux/Actions/FormAction'
 
 const VehicleCallDetails = ({
   setActiveKey,
@@ -43,6 +45,8 @@ const VehicleCallDetails = ({
   const [disabel, setdisabel] = useState(true)
 
   const [submitCon, setsubmitCon] = useState(true)
+  const state1 = useSelector((state) => state.formValueReducer.formValue)
+  const dispatch = useDispatch()
 
   const [state, setState] = useState({
     userId: '1',
@@ -98,6 +102,10 @@ const VehicleCallDetails = ({
     setState((prevProps) => ({
       ...prevProps,
       [name]: value,
+    }))
+    dispatch(addFormValue({
+      name: name,
+      value: value
     }))
   }
 
@@ -227,6 +235,10 @@ const VehicleCallDetails = ({
                   ...prevProps,
                   timeNotified: e.format('LT'),
                 }))
+                dispatch(addFormValue({
+                  name: "timeNotified",
+                  value: e.format('LT')
+                }))
                 setTime(e.format('LT'))
               }}
               className="times"
@@ -245,6 +257,10 @@ const VehicleCallDetails = ({
                   ...prevProps,
                   timeEnroute: e.format('LT'),
                 }))
+                dispatch(addFormValue({
+                  name: "timeEnroute",
+                  value: e.format('LT')
+                }))
                 setTime2(e.format('LT'))
               }}
               className="times"
@@ -262,6 +278,10 @@ const VehicleCallDetails = ({
                 setState((prevProps) => ({
                   ...prevProps,
                   timeAtScene: e.format('LT'),
+                }))
+                dispatch(addFormValue({
+                  name: "timeAtScene",
+                  value: e.format('LT')
                 }))
                 setTime3(e.format('LT'))
               }}
@@ -283,6 +303,10 @@ const VehicleCallDetails = ({
                   ...prevProps,
                   timeOutScene: e.format('LT'),
                 }))
+                dispatch(addFormValue({
+                  name: "timeOutScene",
+                  value: e.format('LT')
+                }))
                 setTime4(e.format('LT'))
               }}
               className="times"
@@ -301,6 +325,10 @@ const VehicleCallDetails = ({
                   ...prevProps,
                   timeAtDestination: e.format('LT'),
                 }))
+                dispatch(addFormValue({
+                  name: "timeAtDestination",
+                  value: e.format('LT')
+                }))
                 setTime5(e.format('LT'))
               }}
               className="times"
@@ -317,7 +345,7 @@ const VehicleCallDetails = ({
                 type="text"
                 id="floatingInput"
                 placeholder="Crew Patien"
-                value={state.crewPatient}
+                value={state1.crewPatient}
                 onChange={(event) => handleInputChange(event, 'crewPatient')}
                 style={{ height: '50px' }}
               />
@@ -330,7 +358,7 @@ const VehicleCallDetails = ({
                 type="text"
                 id="floatingInput"
                 placeholder="Available"
-                value={state.available}
+                value={state1.available}
                 onChange={(event) => handleInputChange(event, 'available')}
                 style={{ height: '50px' }}
               />
@@ -343,7 +371,7 @@ const VehicleCallDetails = ({
                 type="text"
                 id="floatingInput"
                 placeholder="BackArea"
-                value={state.backArea}
+                value={state1.backArea}
                 onChange={(event) => handleInputChange(event, 'backArea')}
                 style={{ height: '50px' }}
               />
@@ -360,7 +388,7 @@ const VehicleCallDetails = ({
               size="sm"
               className="mt-3"
               aria-label="Large select example"
-              value={state.responseToScene}
+              value={state1.responseToScene}
               onChange={(event) => handleInputChange(event, 'responseToScene')}
               style={{ height: '50px' }}
             >
@@ -375,7 +403,7 @@ const VehicleCallDetails = ({
               size="sm"
               className="mt-3"
               aria-label="Large select example"
-              value={state.responseFromScene}
+              value={state1.responseFromScene}
               onChange={(event) => handleInputChange(event, 'responseFromScene')}
               style={{ height: '50px' }}
             >
@@ -394,7 +422,7 @@ const VehicleCallDetails = ({
               size="sm"
               className="mt-3"
               aria-label="Large select example"
-              value={state.crewType}
+              value={state1.crewType}
               onChange={(event) => handleInputChange(event, 'crewType')}
               style={{ height: '50px' }}
             >
@@ -410,7 +438,7 @@ const VehicleCallDetails = ({
               size="sm"
               className="mt-3"
               aria-label="Large select example"
-              value={state.mileage}
+              value={state1.mileage}
               onChange={(event) => handleInputChange(event, 'mileage')}
               style={{ height: '50px' }}
             >
@@ -433,7 +461,7 @@ const VehicleCallDetails = ({
                 type="text"
                 id="floatingInput"
                 placeholder="Patient Contact"
-                value={state.patientContact}
+                value={state1.patientContact}
                 onChange={(event) => handleInputChange(event, 'patientContact')}
                 style={{ height: '50px' }}
               />
@@ -446,7 +474,7 @@ const VehicleCallDetails = ({
                 type="text"
                 id="floatingInput"
                 placeholder="Destination Determinant"
-                value={state.destinationDeterminant}
+                value={state1.destinationDeterminant}
                 onChange={(event) => handleInputChange(event, 'destinationDeterminant')}
                 style={{ height: '50px' }}
               />
@@ -463,7 +491,7 @@ const VehicleCallDetails = ({
               <CFormInput
                 type="date"
                 style={{ height: '50px' }}
-                value={state.startDate}
+                value={state1.startDate}
                 onChange={(event) => handleInputChange(event, 'startDate')}
               ></CFormInput>
               <CFormLabel htmlFor="floatingInput">Document Start Date</CFormLabel>
@@ -474,7 +502,7 @@ const VehicleCallDetails = ({
               <CFormInput
                 type="date"
                 style={{ height: '50px' }}
-                value={state.endDate}
+                value={state1.endDate}
                 onChange={(event) => handleInputChange(event, 'endDate')}
               ></CFormInput>
               <CFormLabel htmlFor="floatingInput">Document End Date</CFormLabel>
@@ -485,7 +513,7 @@ const VehicleCallDetails = ({
               <CFormInput
                 type="date"
                 style={{ height: '50px' }}
-                value={state.dateModified}
+                value={state1.dateModified}
                 onChange={(event) => handleInputChange(event, 'dateModified')}
               ></CFormInput>
               <CFormLabel htmlFor="floatingInput">Date Modified</CFormLabel>

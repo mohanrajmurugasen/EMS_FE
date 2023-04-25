@@ -17,6 +17,9 @@ import {
 import { ToastContainer, toast } from 'react-toastify'
 import { CButton } from '@coreui/react'
 import AuthAxios from 'src/Interceptors/AuthAxios'
+import { useNavigate } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import { addFormValue } from 'src/Redux/Actions/FormAction'
 
 const PatientAssessmentDetails = ({
   setActiveKey,
@@ -31,6 +34,10 @@ const PatientAssessmentDetails = ({
   const [disabel, setdisabel] = useState(true)
 
   const [submitCon, setsubmitCon] = useState(true)
+  const navigate = useNavigate()
+
+  const state1 = useSelector((state) => state.formValueReducer.formValue)
+  const dispatch = useDispatch()
 
   const [state, setState] = useState({
     userId: '1',
@@ -67,6 +74,10 @@ const PatientAssessmentDetails = ({
     setState((prevProps) => ({
       ...prevProps,
       [name]: value,
+    }))
+    dispatch(addFormValue({
+      name: name,
+      value: value
     }))
   }
 
@@ -154,7 +165,7 @@ const PatientAssessmentDetails = ({
                 id="floatingInput"
                 placeholder="FirstName"
                 name="respiration"
-                value={state.respiration}
+                value={state1.respiration}
                 onChange={(event) => handleInputChange(event, 'respiration')}
                 style={{ height: '50px' }}
               />
@@ -169,7 +180,7 @@ const PatientAssessmentDetails = ({
                 id="floatingInput"
                 placeholder="FirstName"
                 name="seizure"
-                value={state.seizure}
+                value={state1.seizure}
                 onChange={(event) => handleInputChange(event, 'seizure')}
                 style={{ height: '50px' }}
               />
@@ -185,7 +196,7 @@ const PatientAssessmentDetails = ({
                 id="floatingInput"
                 placeholder="FirstName"
                 name="toxicExposure"
-                value={state.toxicExposure}
+                value={state1.toxicExposure}
                 onChange={(event) => handleInputChange(event, 'toxicExposure')}
                 style={{ height: '50px' }}
               />
@@ -200,7 +211,7 @@ const PatientAssessmentDetails = ({
                 id="floatingInput"
                 placeholder="FirstName"
                 name="cardiacArrest"
-                value={state.cardiacArrest}
+                value={state1.cardiacArrest}
                 onChange={(event) => handleInputChange(event, 'cardiacArrest')}
                 style={{ height: '50px' }}
               />
@@ -216,7 +227,7 @@ const PatientAssessmentDetails = ({
                 id="floatingInput"
                 placeholder="FirstName"
                 name="chestPain"
-                value={state.chestPain}
+                value={state1.chestPain}
                 onChange={(event) => handleInputChange(event, 'chestPain')}
                 style={{ height: '50px' }}
               />
@@ -231,7 +242,7 @@ const PatientAssessmentDetails = ({
                 id="floatingInput"
                 placeholder="FirstName"
                 name="neonatal"
-                value={state.neonatal}
+                value={state1.neonatal}
                 onChange={(event) => handleInputChange(event, 'neonatal')}
                 style={{ height: '50px' }}
               />
@@ -247,7 +258,7 @@ const PatientAssessmentDetails = ({
                 id="floatingInput"
                 placeholder="FirstName"
                 name="obstetricc"
-                value={state.obstetric}
+                value={state1.obstetric}
                 onChange={(event) => handleInputChange(event, 'obstetric')}
                 style={{ height: '50px' }}
               />
@@ -262,7 +273,7 @@ const PatientAssessmentDetails = ({
                 id="floatingInput"
                 placeholder="FirstName"
                 name="trauma"
-                value={state.trauma}
+                value={state1.trauma}
                 onChange={(event) => handleInputChange(event, 'trauma')}
                 style={{ height: '50px' }}
               />
@@ -286,9 +297,10 @@ const PatientAssessmentDetails = ({
               <button
                 class="btn btn-success"
                 // disabled={submitCon}
-                onClick={() => setVisible(!visible)}
+                // onClick={() => setVisible(!visible)}
+                onClick={() => navigate("/Treatment")}
               >
-                Submit
+                Next
               </button>
             </div>
           </CCol>
