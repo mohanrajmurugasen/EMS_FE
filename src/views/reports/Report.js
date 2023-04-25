@@ -109,7 +109,7 @@ function Report() {
             <CIcon icon={cilPrint} className="me-2" size="lg" style={{ color: 'white' }} />
             <CSVLink
               data={data}
-              filename={'IncidentCallDetails.csv'}
+              filename={'DottyCare_Report.csv'}
               style={{ color: 'white', textDecoration: 'none' }}
             >
               CSV

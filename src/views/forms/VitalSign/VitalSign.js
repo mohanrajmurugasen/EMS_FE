@@ -361,7 +361,7 @@ const VitalSign = ({ setActiveKey, activeKey, setTreatment, treatment, setcondit
         }),
       )
       navigate('/#/CallDetails')
-    }, 1000)
+    }, 2000)
   }
 
   return (
