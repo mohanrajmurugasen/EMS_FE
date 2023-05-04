@@ -218,7 +218,7 @@ const VitalSign = ({ setActiveKey, activeKey, setTreatment, treatment, setcondit
     const email = regex.test(state.email)
     if (email) {
       setdisabel(false)
-      AuthAxios.post('CallDetails', item)
+      AuthAxios.post('RequirementFormDetails', item)
         .then((res) => {
           console.log(res.data)
           setcopy_id(true)

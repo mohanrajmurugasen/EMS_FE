@@ -5,7 +5,7 @@ import ReactPaginate from 'react-paginate'
 import './style.css'
 import { CSVLink } from 'react-csv'
 import CIcon from '@coreui/icons-react'
-import { cilClearAll, cilFilter, cilPrint, cilSearch } from '@coreui/icons'
+import { cilPrint, cilSearch } from '@coreui/icons'
 import { CRow, CCol, CFormInput } from '@coreui/react'
 
 function Report() {
@@ -23,7 +23,7 @@ function Report() {
   console.log(data[0])
 
   useEffect(() => {
-    AuthAxios.get(`CallDetailsById/${filterValues.track}`)
+    AuthAxios.get(`RequirementFormDetailsById/${filterValues.track}`)
       .then((res) => {
         // console.log(res.data.data)
         setData(res.data.data)
