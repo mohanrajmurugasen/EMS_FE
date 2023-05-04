@@ -1,8 +1,8 @@
 import React from 'react'
 import { CNav, CNavItem, CNavLink, CTabContent, CTabPane } from '@coreui/react'
 import { useState } from 'react'
-import PatientTreatmentDetails from '../forms/PatientTreatmentDetails/PatientTreatmentDetails'
-import VitalSign from '../forms/VitalSign/VitalSign'
+import PatientTreatmentDetails from '../TreatmentComponents/PatientTreatmentDetails/PatientTreatmentDetails'
+import VitalSign from '../TreatmentComponents/VitalSign/VitalSign'
 
 export default function Treatment() {
   const [activeKey, setActiveKey] = useState('patientDetails')

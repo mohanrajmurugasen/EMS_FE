@@ -1,9 +1,9 @@
 import React from 'react'
 import { CNav, CNavItem, CNavLink, CTabContent, CTabPane } from '@coreui/react'
 import { useState } from 'react'
-import PatientAssessmentHistory from '../buttons/PatientAssessmentHistory/PatientAssessmentHistory'
-import PrimaryAssessment from '../buttons/PrimaryAssessment/PrimaryAssessment'
-import PatientAssessmentDetails from '../buttons/PatientAssessmentDetails/PatientAssessmentDetails'
+import PatientAssessmentHistory from '../AssessmentComponents/PatientAssessmentHistory/PatientAssessmentHistory'
+import PrimaryAssessment from '../AssessmentComponents/PrimaryAssessment/PrimaryAssessment'
+import PatientAssessmentDetails from '../AssessmentComponents/PatientAssessmentDetails/PatientAssessmentDetails'
 
 export default function Assessment() {
   const [activeKey, setActiveKey] = useState('patientHistory')

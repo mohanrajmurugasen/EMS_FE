@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react'
 import { CNav, CNavItem, CNavLink, CTabContent, CTabPane } from '@coreui/react'
 import { useState } from 'react'
-import PatientCallDetails from '../base/PatientCallDetails/PatientCallDetails'
-import VehicleCallDetails from '../base/VehicleCallDetails/VehicleCallDetails'
-import IncidentCallDetails from '../base/IncidentCallDetails/IncidentCallDetails'
+import PatientCallDetails from '../CallDetailsComponents/PatientCallDetails/PatientCallDetails'
+import VehicleCallDetails from '../CallDetailsComponents/VehicleCallDetails/VehicleCallDetails'
+import IncidentCallDetails from '../CallDetailsComponents/IncidentCallDetails/IncidentCallDetails'
 
 export default function CallDetails() {
   const [activeKey, setActiveKey] = useState('patient')
